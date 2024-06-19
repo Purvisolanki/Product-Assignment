@@ -15,9 +15,10 @@ const validationSchema = Yup.object({
     .min(3, 'Title must be at least 3 characters')
     .required('Title is required'),
   price: Yup.number()
-    .integer('Price must be an integer')
     .required('Price is required')
-    .positive('Price must be positive'),
+    .min(0, 'Price must be positive or zero')
+    .positive('Price must be positive')
+    .test('is-number', 'Price must be a number', value => !isNaN(value)),
   category: Yup.string()
     .min(3, 'Category must be at least 3 characters')
     .required('Category is required'),
